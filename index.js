@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import generalRoutes from './routes/general.js'
 import projectRoutes from './routes/projects.js'
 import issueRoutes from './routes/issues.js'
+import aiRoutes from './routes/ai.js'
 import cors from 'cors';
 
 /* CONFIG */
@@ -17,6 +18,7 @@ app.use(cors())
 app.use('/general', generalRoutes);
 app.use('/project', projectRoutes);
 app.use('/issue', issueRoutes);
+app.use('/ai', aiRoutes);
 
 /* MONGOOSE SETUP */
 mongoose.connect(process.env.CONNECTION_STRING);
