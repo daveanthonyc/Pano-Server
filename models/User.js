@@ -13,7 +13,10 @@ const UserSchema = new mongoose.Schema({
     lastName: String,
     role: String,
     uniqueUserName: String,
-    projects: [ObjectId],
+    projects: {
+        type: [ObjectId],
+        required: false
+    },
     issues: {
         type: [ObjectId],
         required: false

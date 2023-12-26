@@ -18,14 +18,11 @@ export const deleteIssueById = async (req, res) => {
 };
 
 export const findAllIssuesBelongingToUserId = async (req, res) => {
+    const targetId = req.body.id;
+        console.log(targetId);
     try {
-        const user = await Issue.findByIdAndDelete(req.body.idToDelete);
-
-        if (user) {
-            res.status(200).json({ user: "User deleted" });
-        } else {
-            res.status(404).json({ message: 'User not found' });
-        }
+        const issues = await Issue.find({ user: targetId });
+        res.status(200).json({ message: issues})
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: 'Internal Server Error' })
@@ -82,13 +79,13 @@ export const createIssue = async (req, res) => {
             priorityLevel: req.body.priorityLevel,
             startDate: req.body.startDate,
             dueDate: req.body.dueDate,
-            user: req.body.userId,
+            user: req.body.user,
             project: req.body.project,
             creationDate: req.body.creationDate,
         })
         // make issue belong to user
         const foundUser = await User.findByIdAndUpdate(
-            req.body.userId, 
+            req.body.user, 
             {
                 $push: {
                     issues: newIssue._id,
